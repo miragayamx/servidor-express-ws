@@ -1,5 +1,5 @@
 {
-  "name": "servidor-express-ws",
+  "name": "servidor-express",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
