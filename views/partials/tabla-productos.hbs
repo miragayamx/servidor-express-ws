@@ -1,0 +1,25 @@
+<h1 class="display-4">Lista de productos</h1>
+{{#if existe}}
+<table class="table table-responsive table-dark table-striped" id='tabla'>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Imagen</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each lista}}
+        <tr>
+            <td>{{this.title}}</td>
+            <td>${{this.price}}</td>
+            <td><img height="80" src={{this.thumbnail}} alt="#"></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<div class="alert alert-info" role="alert">
+    No se encontraron productos
+</div>
+{{/if}}

@@ -1,0 +1,104 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Servidor Express</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      const CrearProducto = () => {
+        const [data, setData] = React.useState({
+          title: "",
+          price: ""
+        });
+        const [thumbnail, setThumbnail] = React.useState(null);
+        const [done, setDone] = React.useState(false);
+        const [error, setError] = React.useState("");
+        const handleSubmit = (event) => {
+          event.preventDefault();
+          const formData = new FormData();
+          formData.append('title', data.title);
+          formData.append('price', data.price);
+          formData.append('thumbnail', thumbnail);
+          setError("");
+          fetch("http://localhost:8080/api/productos/guardar/", {
+            method: "POST",
+            body: formData
+          })
+            .then(() => {
+              setData({
+                title: "",
+                price: ""
+              });
+              setDone(true);
+            })
+            .catch((err) => {
+              setError("No se pudo realizar la operación");
+            });
+        };
+        const handleChange = (event) => {
+          setDone(false);
+          setData({
+            ...data,
+            [event.target.name]: event.target.value,
+          });
+        };
+        const getFile = (event) => setThumbnail(event.target.files[0]);
+        return (
+          <React.Fragment>
+            <form onSubmit={handleSubmit}>
+              <h2>Registro</h2>
+              <div class="inputfield">
+                <label>titulo</label>
+                <input
+                  name={"title"}
+                  onChange={handleChange}
+                  value={data.title}
+                  required
+                />
+              </div>
+              <div class="inputfield">
+                <label>precio</label>
+                <input
+                  name={"price"}
+                  type={"number"}
+                  step={"any"}
+                  min={0}
+                  onChange={handleChange}
+                  value={data.price}
+                  required
+                />
+              </div>
+              <div class="inputfield">
+                <label>imagen</label>
+                <input
+                  name={"thumbnail"}
+                  type={'file'}
+                  accept={'image/*'}
+                  onChange={getFile}
+                  required
+                />
+              </div>
+              <input className={"button"} type={"submit"} />
+              {done && <span className={'op-done'}>Registro exitoso!</span>}
+              {!!error && <span  className={'op-fail'}>{error}</span>}
+            </form>
+          </React.Fragment>
+        );
+      };
+      ReactDOM.render(<CrearProducto />, document.getElementById("app"));
+    </script>
+  </body>
+</html>

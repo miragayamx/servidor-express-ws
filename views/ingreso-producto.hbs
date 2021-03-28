@@ -1,0 +1,27 @@
+<div class="container">
+    <h1 class="display-4">Registar producto</h1>
+    <form action="http://localhost:8080/api/productos/guardar" method="POST" enctype="multipart/form-data" id="form">
+        <div class="form-group">
+            <label for="title">Nombre</label>
+            <input class="form-control" id="title" type="text" name="title" required="true" />
+        </div>
+        <div class="form-group">
+            <label for="price">Precio</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input class="form-control" id="price" type="number" step="any" name="price" required="true" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="thumbnail">Imagen</label>
+            <input class="form-control" id="thumbnail" type="file" name="thumbnail" required="true" />
+        </div>
+        <button type="submit" class="btn btn-primary">Registrar</button>
+    </form>
+    <div id="datos">
+        {{> tabla-productos }}
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+<script src="/socket-script.js"></script>
