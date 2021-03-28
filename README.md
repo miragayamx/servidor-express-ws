@@ -1,24 +1,14 @@
-# servidor-express-hbs
+# servidor-express-ws
 
 >> Consigna: 
-
-Sobre el proyecto entregable de la clase anterior, incorporar y configurar el
-motor de plantillas handlebars para que permita ver mediante la ruta get '/productos/vista'
-los productos cargados.
-
+Modificar el último entregable para que disponga de un canal de websocket que
+permita representar, por debajo del formulario de ingreso, una tabla con la lista de productos en
+tiempo real.
+- Puede haber varios clientes conectados simultáneamente y en cada uno de ellos se reflejarán
+los cambios que se realicen en los productos sin necesidad de recargar la vista.
+- Cuando un cliente se conecte, recibirá la lista de productos a representar en la vista.
 >> Aspectos a incluir en el entregable:
-
-- Realizar las plantillas correspondientes que permitan recorrer el array de productos y
-representarlo en forma de tabla dinámica, siendo sus cabeceras el nombre de producto, el
-precio y su foto (la foto se mostrará como un imágen en la tabla)
-- En el caso de no encontrarse datos, devolver el mensaje: 'No hay productos'
-- Utilizar bootstrap para maquetar la vista creada por dicho motor de plantillas.
-- Maquetar con bootstrap el formulario de ingreso de productos. Al guardar el producto, se
-debe redirigir la vista al formulario vacío.
-
->> Sugerencias:
-
-- Utilizar iconfinder (https://www.iconfinder.com/free_icons) para obtener la url de las
-imágenes de los productos (click derecho sobre la imagen -> copiar dirección de la imagen)
-- Probar desde postman las demás funciones (actualizar y borrar producto) y ver el resultado
-reflejado en la tabla de productos.
+Para construir la tabla dinámica con los datos recibidos por websocket emplear las siguientes
+opciones:
+1) Utilizar template string
+2) Utilizar Handlebars en el frontend (compiler + runtime)
